@@ -41,7 +41,7 @@
     <div>
       <p>simply use this prompt off-site and select the response that stays more true to the character shown. this tool is meant for testing purposes only.</code></p><p>character: <code id="charsel">n/a - generate a prompt to see the character</code></p>
       <p>raw prompt: <code id="domin">prompt will be shown here once you generate</code></p>
-      <button type="button" class="btn btn-dark" onclick="newpr()">⚡ new prompt</button> <button type="button" class="btn btn-dark disabled">🦄 options (beta)</button>
+      <button type="button" class="btn btn-dark" onclick="newpr()">⚡ new prompt</button> <button type="button" class="btn btn-dark" onclick="copyPr()" id="copyButton">📋 copy prompt</button>
     </div>
   </article>
 
@@ -50,15 +50,67 @@
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    var topics = "";
+    var chars = "";
+
+    function returnTopics() {
+      const url = 'https://cdnframe.camaratas.com/proj/lpb/lists/topics.txt';
+
+      return fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const lines = data.split('\n');
+          const randomIndex = Math.floor(Math.random() * lines.length);
+          const randomLine = lines[randomIndex];
+          return randomLine;
+        })
+        .catch(error => {
+          console.error(error);
+          return ''; // Return an empty string as a fallback
+        });
+    }
+
+    function returnChars() {
+      const url = 'https://cdnframe.camaratas.com/proj/lpb/lists/char.txt';
+
+      return fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const lines = data.split('\n');
+          const randomIndex = Math.floor(Math.random() * lines.length);
+          const randomLine = lines[randomIndex];
+          return randomLine;
+        })
+        .catch(error => {
+          console.error(error);
+          return ''; // Return an empty string as a fallback
+        });
+    }
+    
     function newpr() {
       const element = document.getElementById("domin");
       const elementt = document.getElementById("charsel");
       var pcount = randomIntFromInterval(3, 9);
-      var topic = "topic";
-      var char = "char";
-      element.innerHTML = `Write a ${pcount} paragraph essay about ${topic}. Make sure the amount of paragraphs is exact. Write the essay in character as ${char}.`;
-      elementt.innerHTML = `${char}`;
+      Promise.all([returnTopics(), returnChars()]).then(([topicsResult, charsResult]) => {
+        topics = topicsResult;
+        chars = charsResult;
+        element.innerHTML = `Write a ${pcount} paragraph essay about ${topics}. Make sure the amount of paragraphs is exact. Write the essay in character as ${chars}.`;
+        elementt.innerHTML = chars;
+      });
     }
+    
+      function copyPr() {
+    const codeElement = document.getElementById("domin");
+    const codeText = codeElement.innerText;
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = codeText;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextarea);
+    const copyButton = document.getElementById("copyButton");
+    copyButton.innerText = "✅ copied!";
+  }
   </script>
 </body>
 </html>
