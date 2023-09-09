@@ -39,9 +39,9 @@
   <article>
     <h1>🎉 lightpromptbuilderjs</h1>
     <div>
-      <p>generate gpt-style prompts for testing purposes</p>
-      <code id="domin">prompt will be shown here once you generate</code><br><br>
-      <button type="button" class="btn btn-dark" onclick="newpr()">⚡ new prompt</button>
+      <p>simply use this prompt off-site and select the response that stays more true to the character shown. this tool is meant for testing purposes only.</code></p><p>character: <code id="charsel">n/a - generate a prompt to see the character</code></p>
+      <p>raw prompt: <code id="domin">prompt will be shown here once you generate</code></p>
+      <button type="button" class="btn btn-dark" onclick="newpr()">⚡ new prompt</button> <button type="button" class="btn btn-dark disabled">🦄 options (beta)</button>
     </div>
   </article>
 
@@ -52,10 +52,12 @@
 
     function newpr() {
       const element = document.getElementById("domin");
+      const elementt = document.getElementById("charsel");
       var pcount = randomIntFromInterval(3, 9);
       var topic = "topic";
       var char = "char";
       element.innerHTML = `Write a ${pcount} paragraph essay about ${topic}. Make sure the amount of paragraphs is exact. Write the essay in character as ${char}.`;
+      elementt.innerHTML = `${char}`;
     }
   </script>
 </body>
