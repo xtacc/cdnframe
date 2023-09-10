@@ -33,15 +33,6 @@
     code {
       color: pink!important;
     }
-    
-    textarea {
-    	width: 100%;
-        height: 300px;
-        background-color: black;
-        border: none;
-        color: white;
-        visibility: hidden;
-    }
   </style>
 </head>
 <body>
@@ -51,14 +42,7 @@
       <p>if the prompt doesn't fully load, generate another.</code></p><p>character: <code id="charsel">n/a - generate a prompt to see the character</code></p>
       <p>prompt: <code id="domin">prompt will be shown here once you generate</code></p>
       <button type="button" class="btn btn-dark" id="genButton" onclick="newpr()">👽 create</button> <button type="button" class="btn btn-dark" onclick="copyPr()" id="copyButton">📋 copy</button> <button type="button" class="btn btn-dark" onclick="window.open('https://cdnframe.camaratas.com/proj/lpb-beta', '_self');">🦄 lpb-beta</button><br><br> 
-        <textarea id="template" placeholder="Variables:
-        ${rng} - Random number from 3-9, meant for paragraph counting.
-        ${topic} - Random essay topic in all lowercase.
-        ${char} - Random character, some fictional.
-        
-Example: Write a ${rng} paragraph essay about ${topic}. Make sure the amount of paragraphs is exact. Write the essay in character as ${char}.
 
-Clicking save with no input in this box will not change the template." /></textarea>
     </div>
   </article>
 
